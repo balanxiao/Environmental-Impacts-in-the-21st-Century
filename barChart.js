@@ -92,7 +92,7 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/c288bda2f9cfe4a2d9223c1e703f
   .attr("x",0 - (h / 2))
   .attr("dy", "1em")
   .style("text-anchor", "middle")
-  .text("Average Air Quality Index experienced by Humans");
+  .text("Number of Hunting Licenses");
 
   svg.append("text")
   .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")

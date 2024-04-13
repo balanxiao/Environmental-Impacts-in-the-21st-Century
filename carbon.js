@@ -91,7 +91,7 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/1c1f1f40b26de1b56c657c472a80
   .attr("x",0 - (h / 2))
   .attr("dy", "1em")
   .style("text-anchor", "middle")
-  .text("Average Air Quality Index experienced by Humans");
+  .text("Atmospheric Carbon Levels in Tons");
 
   svg.append("text")
   .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
