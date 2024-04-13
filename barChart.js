@@ -1,6 +1,6 @@
 // Define the dimensions for the SVG
-var margin = { top: 30, right: 30, bottom: 70, left: 60 },
-  w = 1200 - margin.left - margin.right,
+var margin = { top: 30, right: 30, bottom: 70, left: 100 },
+  w = 1300 - margin.left - margin.right,
   h = 600 - margin.top - margin.bottom;
 var barPadding = 1;
 
@@ -84,4 +84,18 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/c288bda2f9cfe4a2d9223c1e703f
     .scale(myColor);
 
   svg.select('.legendSequential').call(legendSequential);
+
+    
+  svg.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - margin.left)
+  .attr("x",0 - (h / 2))
+  .attr("dy", "1em")
+  .style("text-anchor", "middle")
+  .text("Average Air Quality Index experienced by Humans");
+
+  svg.append("text")
+  .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
+  .style("text-anchor", "middle")
+  .text("Year");
 });

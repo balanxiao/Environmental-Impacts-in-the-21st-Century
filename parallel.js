@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 var margin = {top: 30, right: 30, bottom: 70, left: 60},
-    width = 1200- margin.left - margin.right,
+    width = 1300- margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 var barPadding = 1;
 
@@ -14,7 +14,7 @@ const svg = d3.select("#parallelChart")
         `translate(${margin.left},${margin.top})`);
 
 // Parse the Data
-d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55faaaf/raw/25d680ed4e78c034218d0578832089a99455a132/Facilities%2520Inspected%2520-%2520facilities_inspected_for_water_pollution_usafacts.csv").then( function(data) {
+d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55faaaf/raw/05f4ba2fb3705aa412c9fdd15f1f9eaabff9660f/Facilities%2520Inspected%2520-%2520facilities_inspected_for_water_pollution_usafacts.csv").then( function(data) {
 
   // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Species
   let dimensions = Object.keys(data[0]).filter(function(d) { return d != "Years" })
