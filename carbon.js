@@ -33,7 +33,7 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/1c1f1f40b26de1b56c657c472a80
 
   var y = d3
     .scaleLinear()
-    .domain([0, d3.max(data, function (d) { return d['Carbon'] * 1.25; })])
+    .domain([0, d3.max(data, function (d) { return d['Carbon'] * 1.5; })])
     .nice()
     .range([h, 0]);
 
