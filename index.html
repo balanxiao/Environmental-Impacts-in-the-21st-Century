@@ -2,17 +2,44 @@
 <html>
 
 <head>
+
+  <!-- Header -->
   <title>Environmental Impacts in the 21st Century</title>
   <h1>Environmental Impacts in the 21st Century</h1>
   <h4> Allen Ho</h4>
-  <br/>
+  <hr/>
+   <!-- Styling -->
+  <style>
+	.bar:hover {
+	 fill: red;
+	}
+	.dot:hover {
+	 fill: steelblue;
+	}
+  </style>
+	<!-- D3 script & Legend Script -->
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
 </head>
 
 <body>
-	<p>This project aims to evaluate and compare trends of environmental impacts that had 
+	<!-- Description -->
+	<p>
+		This project aims to evaluate and compare trends of environmental impacts that had 
 		been made in the 21st century. The dataset used in this project comes from https://usafacts.org/data/topics/security-safety/energy-and-environment/
 		which provides data on the environmental impacts of the United States. The dataset contains various aspects of environmental impacts that we will explore 
 		and analyze through upcoming data visualizations. 
 	</p>
+   <hr />
+   <!-- Charts -->
+		<div id="barChart"></div>
+		<div id="carbonChart"></div>
+		<div id="lineChart"></div>
+		<div id="parallelChart"></div>
+		<!-- Scripts for Charts -->
+		<script type="module" src="barChart.js"></script>
+		<script type="module" src="lineChart.js"></script>
+		<script type="module" src="carbon.js"></script>
+		<script type="module" src="parallel.js"></script>
 </body>
 </html>
