@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 70, left: 60},
+var margin = {top: 30, right: 30, bottom: 70, left: 40},
     width = 1300- margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 var barPadding = 1;

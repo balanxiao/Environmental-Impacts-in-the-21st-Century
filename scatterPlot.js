@@ -34,7 +34,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
     .enter()
     .append('circle')
     .attr('class', 'dot')
-    .attr('cx', (d) =>x(Math.floor(+d["AQI"])) + Math.random() * x.bandwidth() - x.bandwidth() / 2)
+    .attr('cx', (d) =>x(Math.floor(+d["AQI"])) + Math.random() * x.bandwidth() / 2)
     .attr('cy', (d) => y(+d['Gas']))
     .attr('r', 10)
     .attr('fill',(d) =>'rgb(0, 0, ' +Math.round(+d['Gas'] * 10) +')')

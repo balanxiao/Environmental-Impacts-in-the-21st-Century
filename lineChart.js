@@ -1,5 +1,5 @@
 // Define the dimensions for the SVG
-var margin = {top: 30, right: 30, bottom: 70, left: 60},
+var margin = {top: 30, right: 30, bottom: 70, left: 100},
     w = 1300- margin.left - margin.right,
     h = 600 - margin.top - margin.bottom;
 var barPadding = 1;
@@ -40,7 +40,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
       .attr("stroke", "steelblue")
       .attr("stroke-width", 1.5)
       .attr("d", d3.line()
-        .x(d => (x(+d["Years"])))
+        .x(d => (x(+d["Years"]) + 10))
         .y(d => (y(+d["AQI"])))
         )
 
@@ -49,7 +49,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
         .enter().append("circle")
         .attr("class", "dot")
         .attr("fill", "red")
-        .attr("cx", d => (x(+d["Years"])))
+        .attr("cx", d => (x(+d["Years"]) + 10))
         .attr("cy", d => (y(+d["AQI"])))
         .attr("r", 6)
         .append("title")
