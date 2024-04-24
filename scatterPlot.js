@@ -1,6 +1,6 @@
 // Define the dimensions for the SVG
-var margin = {top: 30, right: 30, bottom: 70, left: 100},
-    w = 1200- margin.left - margin.right,
+var margin = {top: 30, right: 100, bottom: 70, left: 100},
+    w = 1300- margin.left - margin.right,
     h = 600 - margin.top - margin.bottom;
 var barPadding = 1;
 
@@ -18,7 +18,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
 
     // Define scales for x and y axes
     var x = d3.scaleBand()
-      .domain(data.map(function(d) { return Math.floor(+d["AQI"]); })) // Floor the AQI values
+      .domain(data.map(function(d) { return Math.floor(+d["AQI"]); }).reverse()) // Floor the AQI values
       .range([0, w])
       .padding(0.2); // Adjust padding as needed
 
@@ -40,7 +40,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
     .attr('fill',(d) => 'red')
     .style("stroke", "black")
     .append('title')
-    .text((d) =>'GreenHouse Gas Emission: ' +d['Gas'] +', AQI: ' +d['AQI']);
+    .text((d) =>'GreenHouse Gas Emission: ' +d['Gas'] +', AQI: ' +d['AQI'] +', Year: ' +d['Years']);
 
     svg.append("g")
       .attr("class", "axis")
@@ -56,19 +56,42 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
     .attr("class", "axis")
     .call(yAxis);
 
-    svg.append("text")
-    .attr("x", w / 2)
-    .attr("y", -margin.top / 2)
-    .attr("text-anchor", "middle")
-    .text("New Dot Plot of Companies Year's Founded")
-    .style("font-size", "20px");
-
   svg.append("text")
     .attr("x", w / 2)
     .attr("y", h + margin.bottom / 2)
     .attr("text-anchor", "middle")
     .text("")
     .style("font-size", "14px");
+
+
+    svg.append("text")
+    .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
+    .style("text-anchor", "middle")
+    .text("Average Air Quality Index experienced by Humans");
+
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x", 0 - (h / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("GreenHouse Gas Emissions in tons");
+
+  
+      // Calculate regression line
+      var xValues = data.map(d => Math.floor(+d["AQI"]));
+      var yValues = data.map(d => +d['Gas']);
+      var regression = d3.regressionLinear()(xValues.map((d, i) => [d, yValues[i]]));
+  
+      // Draw regression line
+      svg.append("line")
+        .attr("class", "regression-line")
+        .attr("x1", x(regression[0][0]))
+        .attr("y1", y(regression[0][1]))
+        .attr("x2", x(regression[1][0]))
+        .attr("y2", y(regression[1][1]))
+        .style("stroke", "blue")
+        .style("stroke-width", 2);
   })
 
 

@@ -1,6 +1,6 @@
 // Define the dimensions for the SVG
 var margin = {top: 30, right: 30, bottom: 70, left: 60},
-    w = 3000- margin.left - margin.right,
+    w = 1300- margin.left - margin.right,
     h = 600 - margin.top - margin.bottom;
 var barPadding = 1;
 
