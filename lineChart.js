@@ -17,8 +17,8 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // Define scales for x and y axes
-    const x = d3.scaleLinear()
-      .domain(d3.extent(data, d => (+d["Years"])))
+    const x = d3.scaleBand()
+      .domain( data.map(function (d) { return d['Years']; }))
       .range([0, w])
       svg.append("g")
       .attr("class", "axis")
@@ -27,6 +27,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
 
     const y = d3.scaleLinear()
       .domain([0, d3.max(data, d => (+d["AQI"]))])
+      .nice()
       .range([h, 0]);
     svg.append("g")
       .attr("class", "axis")
