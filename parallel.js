@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 var margin = {top: 30, right: 30, bottom: 70, left: 40},
-    width = 1300- margin.left - margin.right,
+    width = 1300 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 var barPadding = 1;
 
@@ -14,9 +14,9 @@ const svg = d3.select("#parallelChart")
         `translate(${margin.left},${margin.top})`);
 
 // Parse the Data
-d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55faaaf/raw/05f4ba2fb3705aa412c9fdd15f1f9eaabff9660f/Facilities%2520Inspected%2520-%2520facilities_inspected_for_water_pollution_usafacts.csv").then( function(data) {
+d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55faaaf/raw/05f4ba2fb3705aa412c9fdd15f1f9eaabff9660f/Facilities%2520Inspected%2520-%2520facilities_inspected_for_water_pollution_usafacts.csv").then(function(data) {
 
-  // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Species
+  // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Years
   let dimensions = Object.keys(data[0]).filter(function(d) { return d != "Years" })
   // For each dimension, I build a linear scale. I store all in a y object
   const y = {}
@@ -38,15 +38,33 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55f
       return d3.line()(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
   }
 
+
+  function highlight(year) {
+    svg.selectAll(".paths")
+      .style("stroke", function(d) {
+        return d['Years'] === year ? 'red' : '#69b3a2';
+      })
+      .style("stroke-width", function(d) {
+        return d['Years'] === year ? '3px' : '1.5px';
+      })
+      .style("opacity", function(d) {
+        return d['Years'] === year ? 1 : 0.2 ;
+      });
+  }
+  
+
   // Draw the lines
   svg
     .selectAll("myPath")
     .data(data)
     .join("path")
     .attr("d",  path)
+    .attr("class", "paths")
     .style("fill", "none")
     .style("stroke", "#69b3a2")
-    .style("opacity", 0.5)
+    .style("opacity", 1)
+    .append('title')
+    .text((d) => 'Year: ' + d['Years']);
 
   // Draw the axis:
   svg.selectAll("myAxis")
@@ -62,6 +80,35 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55f
       .style("text-anchor", "middle")
       .attr("y", -9)
       .text(function(d) { return d; })
-      .style("fill", "black")
+      .style("fill", "black");
+
+
+// Create a dropdown menu
+var dropdown = d3.select("#parallelChart")
+  .append("select")
+  .attr("id", "yearDropdown");
+
+// Get unique years from the dataset
+var years = ["None", ...new Set(data.map(d => d.Years))]; 
+
+dropdown.selectAll("option")
+  .data(years)
+  .enter().append("option")
+  .attr("value", function(d) { return d; })
+  .text(function(d) { return d; });
+
+dropdown.on("change", function() {
+  var selectedYear = this.value;
+  if (selectedYear === "None") {
+    svg.selectAll(".paths")
+      .style("stroke", "#69b3a2")
+      .style("stroke-width", "1.5px")
+      .style("opacity", 0.5);
+  } else {
+    highlight(selectedYear);
+  }
+});
+
+
 
 })
