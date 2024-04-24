@@ -37,9 +37,10 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
     .attr('cx', (d) =>x(Math.floor(+d["AQI"])) + Math.random() * x.bandwidth() / 2)
     .attr('cy', (d) => y(+d['Gas']))
     .attr('r', 10)
-    .attr('fill',(d) =>'rgb(0, 0, ' +Math.round(+d['Gas'] * 10) +')')
+    .attr('fill',(d) => 'red')
+    .style("stroke", "black")
     .append('title')
-    .text((d) =>'Year Founded: ' +d['Gas'] +', Company: ' +d['AQI']);
+    .text((d) =>'GreenHouse Gas Emission: ' +d['Gas'] +', AQI: ' +d['AQI']);
 
     svg.append("g")
       .attr("class", "axis")

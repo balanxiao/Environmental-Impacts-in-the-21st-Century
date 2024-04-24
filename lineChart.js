@@ -52,6 +52,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
         .attr("cx", d => (x(+d["Years"]) + 10))
         .attr("cy", d => (y(+d["AQI"])))
         .attr("r", 6)
+        .style("stroke", "black")
         .append("title")
         .text(d => ("AQI: " + (+d["AQI"]) + " Year:" + (d["Years"])));
    
