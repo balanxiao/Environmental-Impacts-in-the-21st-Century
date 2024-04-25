@@ -33,10 +33,21 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
       .attr("class", "axis")
       .call(d3.axisLeft(y))
 
+  
+      function zoomed(event) {
+        // Add code here for zooming
+        const xz = event.transform.rescaleX(x);
+        x_axis.call(d3.axisBottom(xz));
+        city.selectAll('.line').attr('d', function (d) {
+          return makeLine(xz)(d.values);
+        });
+      }
+      
       
     svg.append("path")
       .datum(data)
       .attr("fill", "none")
+      .attr("class", "line")
       .attr("stroke", "steelblue")
       .attr("stroke-width", 1.5)
       .attr("d", d3.line()
