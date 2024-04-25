@@ -8,6 +8,7 @@ var barPadding = 1;
 d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f6693881e40/raw/643ed2db8210a15fbba086084d72da989bea23e2/AQI.csv")
   .then(function(data) {
 
+    var dotsVisible = true;
     // Create the SVG element
     var svg = d3.select("#lineChart")
       .append("svg")
@@ -32,17 +33,6 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
     svg.append("g")
       .attr("class", "axis")
       .call(d3.axisLeft(y))
-
-  
-      function zoomed(event) {
-        // Add code here for zooming
-        const xz = event.transform.rescaleX(x);
-        x_axis.call(d3.axisBottom(xz));
-        city.selectAll('.line').attr('d', function (d) {
-          return makeLine(xz)(d.values);
-        });
-      }
-      
       
     svg.append("path")
       .datum(data)
@@ -79,4 +69,34 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
         .attr("dy", "1em")
         .style("text-anchor", "middle")
         .text("Average Air Quality Index experienced by Humans");
+
+      //   function zoomed(event) {
+      //     svg.attr("transform", event.transform);
+      //     svg.select(".x.axis").call(d3.axisBottom(x).scale(event.transform.rescaleX(x)));
+      //     svg.select(".y.axis").call(d3.axisBottom(x).scale(event.transform.rescaleX(y)));
+      // }
+
+      //   // Define zoom behavior
+      //   var zoom = d3.zoom()
+      //       .scaleExtent([1, 10])
+      //       .on("zoom", zoomed);
+
+      //   // Apply zoom behavior to the SVG
+      //   svg.call(zoom);
+
+  // Function to toggle visibility of dots
+        function toggleDotsVisibility() {
+          if (dotsVisible) {
+              svg.selectAll(".dot").style("display", "none");
+          } else {
+              svg.selectAll(".dot").style("display", "block");
+          }
+          dotsVisible = !dotsVisible; // Toggle visibility state
+      }
+
+
+      var button = document.createElement("button");
+      button.textContent = "Dots Visibility";
+      button.addEventListener("click", toggleDotsVisibility);
+      document.getElementById("lineChart").appendChild(button);
   })

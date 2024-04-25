@@ -82,33 +82,26 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55f
       .text(function(d) { return d; })
       .style("fill", "black");
 
+  var dropdown = d3.select("#parallelChart")
+    .append("select")
 
-// Create a dropdown menu
-var dropdown = d3.select("#parallelChart")
-  .append("select")
-  .attr("id", "yearDropdown");
+  var years = ["None", ...new Set(data.map(d => d.Years))]; 
 
-// Get unique years from the dataset
-var years = ["None", ...new Set(data.map(d => d.Years))]; 
+  dropdown.selectAll("option")
+    .data(years)
+    .enter().append("option")
+    .attr("value", function(d) { return d; })
+    .text(function(d) { return d; });
 
-dropdown.selectAll("option")
-  .data(years)
-  .enter().append("option")
-  .attr("value", function(d) { return d; })
-  .text(function(d) { return d; });
-
-dropdown.on("change", function() {
-  var selectedYear = this.value;
-  if (selectedYear === "None") {
-    svg.selectAll(".paths")
-      .style("stroke", "#69b3a2")
-      .style("stroke-width", "1.5px")
-      .style("opacity", 0.5);
-  } else {
-    highlight(selectedYear);
-  }
-});
-
-
-
+  dropdown.on("change", function() {
+    var selectedYear = this.value;
+    if (selectedYear === "None") {
+      svg.selectAll(".paths")
+        .style("stroke", "#69b3a2")
+        .style("stroke-width", "1.5px")
+        .style("opacity", 0.5);
+    } else {
+      highlight(selectedYear);
+    }
+  });
 })
