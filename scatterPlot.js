@@ -98,15 +98,3 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
         console.log("Regression:", regression);
         
   })
-
-
-
-
-
-
-
-
-
-
-
-

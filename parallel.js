@@ -85,7 +85,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55f
   var dropdown = d3.select("#parallelChart")
     .append("select")
 
-  var years = ["None", ...new Set(data.map(d => d.Years))]; 
+  var years = ["Year", ...new Set(data.map(d => d.Years))]; 
 
   dropdown.selectAll("option")
     .data(years)

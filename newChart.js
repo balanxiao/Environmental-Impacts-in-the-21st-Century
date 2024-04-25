@@ -97,15 +97,3 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/31a1cde4e1ff72b994ede5e42ec5
   svg.select(".legendSequential")
     .call(legendSequential);
   })
-
-
-
-
-
-
-
-
-
-
-
-
