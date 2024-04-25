@@ -92,6 +92,13 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
         .attr("y2", y(regression[1][1]))
         .style("stroke", "blue")
         .style("stroke-width", 2);
+
+
+        
+        console.log("xValues:", xValues);
+        console.log("yValues:", yValues);
+        console.log("Regression:", regression);
+        
   })
 
 
