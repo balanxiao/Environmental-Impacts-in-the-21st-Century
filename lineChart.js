@@ -55,7 +55,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
         .attr("r", 6)
         .style("stroke", "black")
         .append("title")
-        .text(d => ("AQI: " + (+d["AQI"]) + " Year:" + (d["Years"])));
+        .text(d => ("AQI: " + (+d["AQI"]) + " Year: " + (d["Years"])));
    
       svg.append("text")
       .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
