@@ -8,6 +8,7 @@ var barPadding = 1;
 d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10703d/raw/1bd86f73817d49e0de73519930f768d5c350b3db/Gas_vs_AQI.csv")
   .then(function(data) {
 
+    data.sort((a, b) => +b["AQI"] - +a["AQI"]);
     // Create the SVG element
     var svg = d3.select("#scatterPlot")
       .append("svg")
@@ -16,44 +17,53 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Define scales for x and y axes
-    var x = d3.scaleBand()
-      .domain(data.map(function(d) { return Math.floor(+d["AQI"]); }).reverse()) // Floor the AQI values
-      .range([0, w])
-      .padding(0.2); // Adjust padding as needed
+var aqiValues = Array.from(new Set(data.map(function(d) { return Math.floor(+d["AQI"]); })));
+
+// Include 46 in the AQI values and sort them
+aqiValues.push(46);
+aqiValues.sort((a, b) => a - b);
+
+// Define scales for x and y axes
+var x = d3.scaleBand()
+  .domain(aqiValues) 
+  .range([0, w])
+  .padding(0.2); 
 
     var y = d3.scaleLinear()
-      .domain([0, d3.max(data, function(d) { return d["Gas"] })])
+      .domain([d3.min(data, function(d) { return d["Gas"] }), d3.max(data, function(d) { return d["Gas"] })])
       .nice()
       .range([h, 0]);
 
-  // Draw circles for each data point
-  svg
-    .selectAll('.dot')
+
+svg.selectAll('.dot')
     .data(data)
     .enter()
     .append('circle')
     .attr('class', 'dot')
-    .attr('cx', (d) =>x(Math.floor(+d["AQI"])) + Math.random() * x.bandwidth() / 2)
+    .attr('cx', (d) => x(Math.floor(+d["AQI"])) + 60 + Math.random() * 10) 
     .attr('cy', (d) => y(+d['Gas']))
-    .attr('r', 10)
+    .attr('r', 6)
     .attr('fill',(d) => 'red')
     .style("stroke", "black")
     .append('title')
-    .text((d) =>'GreenHouse Gas Emission: ' +d['Gas'] +', AQI: ' +d['AQI'] +', Year: ' +d['Years']);
+    .text((d) => 'GreenHouse Gas Emission: ' + d['Gas'] + ', AQI: ' + d['AQI'] + ', Year: ' + d['Years']);
+
 
     svg.append("g")
       .attr("class", "axis")
+      .style("stroke", "black")
       .attr("transform", "translate( 0 , " + h + ")")
       .call(d3.axisBottom(x))
       .selectAll("text")
-      .style("font-size", 10)
+      .style("font-size", 15)
       .style("fill", "0");
 
     var yAxis = d3.axisLeft()
                   .scale(y)
+                  .tickFormat(function(d){return d/1000000 + " Million"});
     svg.append("g")
     .attr("class", "axis")
+    .style("stroke", "black")
     .call(yAxis);
 
   svg.append("text")
@@ -67,6 +77,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
     svg.append("text")
     .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
     .style("text-anchor", "middle")
+    .style('stroke', "black")
     .text("Average Air Quality Index experienced by Humans");
 
     svg.append("text")
@@ -75,6 +86,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/bc5f32e18e66cac9041831a3ae10
       .attr("x", 0 - (h / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
+      .style('stroke', "black")
       .text("GreenHouse Gas Emissions in tons");
 
   

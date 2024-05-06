@@ -64,13 +64,22 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55f
     .style("stroke", "#69b3a2")
     .style("opacity", 1)
     .append('title')
-    .text((d) => 'Year: ' + d['Years']);
+    .text((d) => {
+      let titleText = 'Year: ' + d['Years'] + '\n';
+      Object.keys(d).forEach(key => {
+        if (key !== 'Years') {
+          titleText += `${key}: ${d[key]} facilites\n`;
+        }
+      });
+      return titleText;
+    });
 
   // Draw the axis:
   svg.selectAll("myAxis")
     // For each dimension of the dataset I add a 'g' element:
     .data(dimensions).enter()
     .append("g")
+    .style("stroke", "black")
     // I translate this element to its right position on the x axis
     .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
     // And I build the axis with the call function
@@ -78,6 +87,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55f
     // Add axis title
     .append("text")
       .style("text-anchor", "middle")
+      .style("font-size", 12)
       .attr("y", -9)
       .text(function(d) { return d; })
       .style("fill", "black");

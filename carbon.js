@@ -53,27 +53,33 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/1c1f1f40b26de1b56c657c472a80
     .append('title')
     .text((d) => d['Carbon'] + ' Tons');
 
-  svg
+    svg
     .append('g')
     .attr('class', 'axis')
     .attr('transform', 'translate( 0 , ' + h + ')')
-    .call(d3.axisBottom(x))
+    .call(d3.axisBottom(x).tickValues(x.domain().filter(function(d, i) { return i % 2 === 0; }))) // Display every other tick label
     .selectAll('text')
-    .style('font-size', 10)
+    .style('font-size', 15)
+    .style('stroke', "black")
     .style('fill', '0');
 
   var yAxis = d3.axisLeft().scale(y);
-  svg.append('g').attr('class', 'axis').call(yAxis);
+  svg.append('g')
+  .attr('class', 'axis')
+  .call(yAxis)
+  .style('stroke', "black");
 
   svg
     .append('g')
     .attr('class', 'legendSequential')
+    .style('stroke', "black")
     .attr('transform', 'translate(1000,15)');
 
   svg
     .append('text')
-    .attr('transform', 'translate(960,5)')
-    .style('font-size', '12px')
+    .attr('transform', 'translate(940,5)')
+    .style("font-size", 20)
+    .style("stroke", "black")
     .text("Atmospheric Carbon Levels in Tons");
 
   var legendSequential = d3
@@ -91,10 +97,13 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/1c1f1f40b26de1b56c657c472a80
   .attr("x",0 - (h / 2))
   .attr("dy", "1em")
   .style("text-anchor", "middle")
+  .style('stroke', "black")
   .text("Atmospheric Carbon Levels in Tons");
 
   svg.append("text")
   .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
   .style("text-anchor", "middle")
+  .style("font-size", 20)
+  .style("stroke", "black")
   .text("Year");
 });

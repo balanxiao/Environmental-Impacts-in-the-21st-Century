@@ -5,7 +5,7 @@ var margin = { top: 30, right: 30, bottom: 70, left: 100 },
 var barPadding = 1;
 
 // Load the CSV data
-d3.csv('https://gist.githubusercontent.com/AllenHo2/c288bda2f9cfe4a2d9223c1e703f97dc/raw/218cf6af00ba68eea250134c17a8c3ef7bfc4347/Hunting_License%2520-%2520hunting_license_tags_permits_and_stamps_usafacts%2520(1).csv').then(function (data) {
+d3.csv('https://gist.githubusercontent.com/AllenHo2/60e931802e00bba842a25c07181fa11e/raw/40d021a33a040eee1d9c64732675fd0b864a74eb/BTU.csv').then(function (data) {
   // var sequentialScale = d3.scaleSequential(d3.interpolateRainbow)
   // .domain([0,100]);
 
@@ -20,7 +20,7 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/c288bda2f9cfe4a2d9223c1e703f
 
   var myColor = d3
     .scaleLinear()
-    .domain([25000000, 50000000])
+    .domain([5000000000000000000, 8150000000000000000])
     .range(['white', 'blue']);
 
   // Define scales for x and y axes
@@ -33,7 +33,7 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/c288bda2f9cfe4a2d9223c1e703f
 
   var y = d3
     .scaleLinear()
-    .domain([0, d3.max(data, function (d) { return d['License'] * 1.25; })])
+    .domain([0, d3.max(data, function (d) { return d['Fuel'] * 1.25; })])
     .nice()
     .range([h, 0]);
 
@@ -46,44 +46,56 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/c288bda2f9cfe4a2d9223c1e703f
     .append('rect')
     .attr('class', 'bar')
     .attr('x', function (d) {return x(d['Years']);})
-    .attr('y', function (d) {return y(d['License']);})
+    .attr('y', function (d) {return y(d['Fuel']);})
     .attr('width', x.bandwidth())
-    .attr('height',(d) => h - y(d['License']))
-    .attr('fill', function (d) {return myColor(d['License']);})
+    .attr('height',(d) => h - y(d['Fuel']))
+    .attr('fill', function (d) {return myColor(d['Fuel']);})
     .append('title')
-    .text((d) => d['License'] + ' license');
+    .text((d) => d['Fuel'] + ' Fuel');
 
-  svg
+    svg
     .append('g')
     .attr('class', 'axis')
     .attr('transform', 'translate( 0 , ' + h + ')')
-    .call(d3.axisBottom(x))
+    .call(d3.axisBottom(x).tickValues(x.domain().filter(function(d, i) { return i % 2 === 0; }))) // Display every other tick label
     .selectAll('text')
-    .style('font-size', 10)
+    .style('font-size', 15)
+    .style('stroke', "black")
     .style('fill', '0');
 
-  var yAxis = d3.axisLeft().scale(y);
-  svg.append('g').attr('class', 'axis').call(yAxis);
+  var yAxis = d3.axisLeft().scale(y).tickFormat(function(d){return d/1000000000000000000 + " Quadrillion"});
+  svg.append('g')
+  .attr('class', 'axis')
+  .call(yAxis)
+  .style('stroke', "black");
 
   svg
     .append('g')
     .attr('class', 'legendSequential')
-    .attr('transform', 'translate(1000,20)');
+    .style('stroke', "black")
+    .attr('transform', 'translate(900,14)');
 
   svg
     .append('text')
-    .attr('transform', 'translate(1000,5)')
+    .attr('transform', 'translate(960,2)')
     .style('font-size', '12px')
-    .text("# of License");
+    .style('stroke', "black")
+    .text("Fossil Fuel in BTU");
 
-  var legendSequential = d3
+    var legendSequential = d3
     .legendColor()
     .shapeWidth(30)
-    .cells(6)
+    .cells(5)
     .orient('vertical')
-    .scale(myColor);
+    .scale(myColor)
+    .labelFormat(d3.format(".0f"));
 
-  svg.select('.legendSequential').call(legendSequential);
+
+svg.select('.legendSequential')
+  .call(legendSequential)
+  .selectAll("text")
+  .style("font-size", 15) // Set the font size to match your y-axis labels
+  .style("stroke", "black"); // Set the font color to match your y-axis labels
 
     
   svg.append("text")
@@ -92,10 +104,14 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/c288bda2f9cfe4a2d9223c1e703f
   .attr("x",0 - (h / 2))
   .attr("dy", "1em")
   .style("text-anchor", "middle")
-  .text("Number of Hunting Licenses");
+  .style("font-size", 20)
+  .style("stroke", "black")
+  .text("Number of Fuels");
 
   svg.append("text")
   .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
   .style("text-anchor", "middle")
+  .style("font-size", 20)
+  .style("stroke", "black")
   .text("Year");
 });

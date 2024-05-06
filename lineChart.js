@@ -21,17 +21,24 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
     const x = d3.scaleBand()
       .domain( data.map(function (d) { return d['Years']; }))
       .range([0, w])
-      svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + h + ")")
-      .call(d3.axisBottom(x))
+      svg
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', 'translate( 0 , ' + h + ')')
+      .call(d3.axisBottom(x).tickValues(x.domain().filter(function(d, i) { return i % 2 === 0; }))) // Display every other tick label
+      .selectAll('text')
+      .style('font-size', 15)
+      .style('stroke', "black")
+      .style('fill', '0');
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => (+d["AQI"]))])
+      .domain([d3.min(data, d => (+d["AQI"])), d3.max(data, d => (+d["AQI"]))])
       .nice()
       .range([h, 0]);
     svg.append("g")
       .attr("class", "axis")
+      .style('stroke', "black")
+      .style('font-size', 15)
       .call(d3.axisLeft(y))
       
     svg.append("path")
@@ -60,6 +67,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
       svg.append("text")
       .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
       .style("text-anchor", "middle")
+      .style('stroke', "black")
       .text("Year");
   
       svg.append("text")
@@ -68,6 +76,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
         .attr("x",0 - (h / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
+        .style('stroke', "black")
         .text("Average Air Quality Index experienced by Humans");
 
       //   function zoomed(event) {
