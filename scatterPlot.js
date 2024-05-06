@@ -25,7 +25,7 @@ aqiValues.sort((a, b) => a - b);
 
 // Define scales for x and y axes
 var x = d3.scaleBand()
-  .domain(aqiValues) 
+  .domain(aqiValues.reverse()) 
   .range([0, w])
   .padding(0.2); 
 
@@ -40,9 +40,9 @@ svg.selectAll('.dot')
     .enter()
     .append('circle')
     .attr('class', 'dot')
-    .attr('cx', (d) => x(Math.floor(+d["AQI"])) + 60 + Math.random() * 10) 
+    .attr('cx', (d) => x(Math.floor(+d["AQI"]))+ Math.random() * 25 - 20) 
     .attr('cy', (d) => y(+d['Gas']))
-    .attr('r', 6)
+    .attr('r', 8)
     .attr('fill',(d) => 'red')
     .style("stroke", "black")
     .append('title')
