@@ -98,7 +98,7 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/1c1f1f40b26de1b56c657c472a80
   .attr("dy", "1em")
   .style("text-anchor", "middle")
   .style('stroke', "black")
-  .text("Atmospheric Carbon Levels in Tons");
+  .text("Atmospheric Carbon Levels (Tons)");
 
   svg.append("text")
   .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
