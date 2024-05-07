@@ -106,7 +106,7 @@ svg.select('.legendSequential')
   .style("text-anchor", "middle")
   .style("font-size", 20)
   .style("stroke", "black")
-  .text("Number of Fuels");
+  .text("Fossil Fuels in BTU");
 
   svg.append("text")
   .attr("transform", "translate(" + (w/2) + " ," + (h + margin.top + 20) + ")")
