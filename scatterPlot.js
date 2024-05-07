@@ -25,7 +25,7 @@ aqiValues.sort((a, b) => a - b);
 
 // Define scales for x and y axes
 var x = d3.scaleBand()
-  .domain(aqiValues.reverse()) 
+  .domain(aqiValues) 
   .range([0, w])
   .padding(0.2); 
 
