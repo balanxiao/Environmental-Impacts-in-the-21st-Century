@@ -14,7 +14,7 @@ const svg = d3.select("#parallelChart")
         `translate(${margin.left},${margin.top})`);
 
 // Parse the Data
-d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55faaaf/raw/05f4ba2fb3705aa412c9fdd15f1f9eaabff9660f/Facilities%2520Inspected%2520-%2520facilities_inspected_for_water_pollution_usafacts.csv").then(function(data) {
+d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55faaaf/raw/de46ac68149c48de469c8fd2ef0a38bf4f6be0ef/Facilities%2520Inspected%2520-%2520facilities_inspected_for_water_pollution_usafacts.csv").then(function(data) {
 
   // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Years
   let dimensions = Object.keys(data[0]).filter(function(d) { return d != "Years" })
