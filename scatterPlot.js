@@ -55,15 +55,16 @@ svg.selectAll('.dot')
       .attr("transform", "translate( 0 , " + h + ")")
       .call(d3.axisBottom(x))
       .selectAll("text")
-      .style("font-size", 15)
+      .style("font-size", 20)
       .style("fill", "0");
 
     var yAxis = d3.axisLeft()
                   .scale(y)
-                  .tickFormat(function(d){return d/1000000 + " Million"});
+                  .tickFormat(function(d){return d/1000000000 + " Billion"});
     svg.append("g")
     .attr("class", "axis")
     .style("stroke", "black")
+    .style("font-size", 15)
     .call(yAxis);
 
   svg.append("text")

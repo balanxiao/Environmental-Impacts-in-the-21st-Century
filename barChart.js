@@ -59,21 +59,22 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/60e931802e00bba842a25c07181f
     .attr('transform', 'translate( 0 , ' + h + ')')
     .call(d3.axisBottom(x).tickValues(x.domain().filter(function(d, i) { return i % 2 === 0; }))) // Display every other tick label
     .selectAll('text')
-    .style('font-size', 15)
+    .style('font-size', 20)
     .style('stroke', "black")
     .style('fill', '0');
 
-  var yAxis = d3.axisLeft().scale(y).tickFormat(function(d){return d/1000000000000000000 + " Quadrillion"});
+  var yAxis = d3.axisLeft().scale(y).tickFormat(function(d){return d/1000000000000000000 + " Quintillion"});
   svg.append('g')
   .attr('class', 'axis')
   .call(yAxis)
+  .style('font-size', 12)
   .style('stroke', "black");
 
   svg
     .append('g')
     .attr('class', 'legendSequential')
     .style('stroke', "black")
-    .attr('transform', 'translate(900,14)');
+    .attr('transform', 'translate(960,14)');
 
   svg
     .append('text')
@@ -88,7 +89,8 @@ d3.csv('https://gist.githubusercontent.com/AllenHo2/60e931802e00bba842a25c07181f
     .cells(5)
     .orient('vertical')
     .scale(myColor)
-    .labelFormat(d3.format(".0f"));
+    .labelFormat(d3.format(".1"));
+
 
 
 svg.select('.legendSequential')

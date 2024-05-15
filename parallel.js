@@ -87,7 +87,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/c37391c52789b4e93dd53b32e55f
     // Add axis title
     .append("text")
       .style("text-anchor", "middle")
-      .style("font-size", 12)
+      .style("font-size", 20)
       .attr("y", -9)
       .text(function(d) { return d; })
       .style("fill", "black");

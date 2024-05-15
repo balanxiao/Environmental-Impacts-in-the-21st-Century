@@ -27,7 +27,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
       .attr('transform', 'translate( 0 , ' + h + ')')
       .call(d3.axisBottom(x).tickValues(x.domain().filter(function(d, i) { return i % 2 === 0; }))) // Display every other tick label
       .selectAll('text')
-      .style('font-size', 15)
+      .style('font-size', 20)
       .style('stroke', "black")
       .style('fill', '0');
 
@@ -38,7 +38,7 @@ d3.csv("https://gist.githubusercontent.com/AllenHo2/d049ea2fcf61c90a9b220f669388
     svg.append("g")
       .attr("class", "axis")
       .style('stroke', "black")
-      .style('font-size', 15)
+      .style('font-size', 20)
       .call(d3.axisLeft(y))
       
     svg.append("path")
