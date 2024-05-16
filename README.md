@@ -24,13 +24,11 @@ After that if you want to run this code locally use
 ```bash
 git checkout -b <NEW_BRANCH_NAME>
 ```
-Open a live server on preferred IDE, then do the normal git procedure to push your code locall
+Open a live server on preferred IDE, then do the normal git procedure to push your code locally onto that branch
 ```bash
-javac Main.java Passenger.java Floor.java Elevator.java
-```
-Then run the program by typing in (add any files after Main to run different properties)
-```bash
-java Main
+git add <FILES>
+git commit -m "<COMMIT_MESSAGES>"
+git push origin <NEW_BRANCH_NAME>
 ```
 
 ## Connect
